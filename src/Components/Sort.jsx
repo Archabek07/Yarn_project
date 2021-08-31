@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-function Sort(items) {
+function Sort({ items }) {
   const [sortVisible, setSortVisible] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const sortRef = useRef();
@@ -14,11 +14,14 @@ function Sort(items) {
   const toggleSortVisible = () => {
     setSortVisible(!sortVisible);
   };
-  const onItemSelect = (idx) => setActiveItem(idx);
+  const onItemSelect = (idx) => {
+    setActiveItem(idx);
+  };
 
   useEffect(() => {
     document.body.addEventListener("click", handleBodyClick);
   }, []);
+
   return (
     <div ref={sortRef} className="sort">
       <div className="sort__label">
@@ -38,23 +41,23 @@ function Sort(items) {
         <b>Сортировка по:</b>
         <span onClick={toggleSortVisible}>популярности</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          {items &&
-            items.map((itemName, idx) => (
-              <li
-                className={activeItem === idx ? "active" : ""}
-                onClick={() => onItemSelect(idx)}
-                key={`${itemName}_${idx}`}
-              >
-                {itemName}
-              </li>
-            ))}
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+
+      {sortVisible && (
+        <div className="sort__popup">
+          <ul>
+            {items &&
+              items.map((itemName, idx) => (
+                <li
+                  className={activeItem === idx ? "active" : ""}
+                  onClick={() => onItemSelect(idx)}
+                  key={`${itemName}_${idx}`}
+                >
+                  {itemName}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

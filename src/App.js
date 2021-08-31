@@ -27,7 +27,7 @@ function App() {
               onClick={(itemName) => console.log(itemName)}
               items={["Сказки", "Мальчикам", "Девочкам", "Энциклопедии"]}
             />
-            <Sort items={["по полурности", "цене", "алфавиту"]} />
+            <Sort items={["популярности", "цене", "алфавиту"]} />
           </div>
           <h2 className="content__title">Все книги</h2>
           <div className="content__items">
